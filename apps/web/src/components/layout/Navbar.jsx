@@ -6,14 +6,13 @@ import {
   FiHome,
   FiUser,
 } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const links = [
   {
     nome: "Início",
     icone: FiHome,
     destino: "/",
-    ativo: true,
   },
   {
     nome: "Avaliações",
@@ -33,6 +32,7 @@ const links = [
 ];
 
 function Navbar() {
+  const location = useLocation();
   return (
     <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/95 shadow-sm backdrop-blur">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -68,42 +68,51 @@ function Navbar() {
           </div>
 
           {/* Navegação para desktop */}
+
           <ul className="hidden items-center gap-1 md:order-2 md:flex">
-            {links.map(({ nome, icone: Icone, destino, ativo }) => (
-              <li key={nome}>
-                <Link
-                  to={destino}
-                  aria-current={ativo ? "page" : undefined}
-                  className={`flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${ativo
-                    ? "bg-[#eeeaff] text-[#6b59df]"
-                    : "text-[#625f73] hover:bg-[#f5f3ff] hover:text-[#6b59df]"
-                    }`}
-                >
-                  <Icone size={18} aria-hidden="true" />
-                  {nome}
-                </Link>
-              </li>
-            ))}
+            {links.map(({ nome, icone: Icone, destino }) => {
+              const ativo = location.pathname === destino;
+
+              return (
+                <li key={nome}>
+                  <Link
+                    to={destino}
+                    aria-current={ativo ? "page" : undefined}
+                    className={`flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${ativo
+                      ? "bg-[#eeeaff] text-[#6b59df]"
+                      : "text-[#625f73] hover:bg-[#f5f3ff] hover:text-[#6b59df]"
+                      }`}
+                  >
+                    <Icone size={18} aria-hidden="true" />
+                    {nome}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
         {/* Navegação para celular */}
         <ul className="grid grid-cols-4 gap-1 pb-2 md:hidden">
-          {links.map(({ nome, icone: Icone, destino, ativo }) => (
-            <li key={nome}>
-              <Link
-                to={destino}
-                aria-current={ativo ? "page" : undefined}
-                className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-center text-xs font-semibold transition ${ativo
-                  ? "bg-[#eeeaff] text-[#6b59df]"
-                  : "text-[#625f73] hover:bg-[#f5f3ff] hover:text-[#6b59df]"
-                  }`}
-              >
-                <Icone size={19} aria-hidden="true" />
-                {nome}
-              </Link>
-            </li>
-          ))}
+          {links.map(({ nome, icone: Icone, destino }) => {
+            const ativo = location.pathname === destino;
+
+            return (
+              <li key={nome}>
+                <Link
+                  to={destino}
+                  aria-current={ativo ? "page" : undefined}
+                  className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-center text-xs font-semibold transition ${ativo
+                    ? "bg-[#eeeaff] text-[#6b59df]"
+                    : "text-[#625f73] hover:bg-[#f5f3ff] hover:text-[#6b59df]"
+                    }`}
+                >
+                  <Icone size={19} aria-hidden="true" />
+                  {nome}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>
