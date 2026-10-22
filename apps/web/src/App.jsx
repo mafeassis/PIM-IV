@@ -1,6 +1,7 @@
-import StudentHome from "./pages/student/StudentHome";
+import Professor from "./pages/Professor.jsx";
+
 function App() {
-  return <StudentHome />;
+  return <Professor />;
 }
 
 export default App;
