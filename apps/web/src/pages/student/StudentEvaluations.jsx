@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { FiBookOpen, FiClock, FiSearch } from "react-icons/fi";
 import Navbar from "../../components/layout/Navbar";
+import { Link } from "react-router";
 
 const avaliacoes = [
   {
@@ -117,14 +118,12 @@ function StudentEvaluations() {
                       Prazo: {avaliacao.prazo}
                     </p>
 
-                    <button
-                      type="button"
-                      disabled
-                      title="O acesso ao questionário será habilitado após a integração com o backend."
-                      className="mt-5 w-full cursor-not-allowed rounded-xl bg-[#7665e8] px-4 py-3 font-semibold text-white opacity-70"
+                    <Link
+                      to={`/avaliacao/${avaliacao.id}`}
+                      className="mt-5 flex w-full items-center justify-center rounded-xl bg-[#7665e8] px-4 py-3 font-semibold text-white transition hover:bg-[#6553d5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6553d5]"
                     >
                       Realizar avaliação
-                    </button>
+                    </Link>
                   </article>
                 ))}
               </div>

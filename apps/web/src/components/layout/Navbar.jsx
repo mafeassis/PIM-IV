@@ -11,6 +11,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { Link, useLocation } from "react-router";
+import ExitConfirmation from "../student/ExitConfirmation";
 
 const links = [
   { nome: "Início", icone: FiHome, destino: "/" },
@@ -22,6 +23,7 @@ const links = [
 function Navbar() {
   const location = useLocation();
   const [menuAberto, setMenuAberto] = useState(false);
+  const [confirmarSaida, setConfirmarSaida] = useState(false);
   const [altoContraste, setAltoContraste] = useState(() =>
     document.documentElement.classList.contains("alto-contraste")
   );
@@ -62,9 +64,18 @@ function Navbar() {
 
   function sair() {
     setMenuAberto(false);
+    setConfirmarSaida(true);
+  }
 
-    // O logout real será integrado com a autenticação posteriormente.
-    alert("A opção Sair será conectada ao login na integração com o backend.");
+  function cancelarSaida() {
+    setConfirmarSaida(false);
+  }
+
+  function confirmarLogout() {
+    setConfirmarSaida(false);
+
+    // A navegação para o login será integrada à autenticação posteriormente.
+    window.location.href = "/login";
   }
 
   return (
@@ -197,8 +208,18 @@ function Navbar() {
           })}
         </ul>
       </div>
+
+
+      {confirmarSaida && (
+        <ExitConfirmation
+          onCancelar={cancelarSaida}
+          onConfirmar={confirmarLogout}
+        />
+      )}
+
     </nav>
   );
 }
+
 
 export default Navbar;
