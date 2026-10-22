@@ -1,3 +1,4 @@
+
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
@@ -8,6 +9,14 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
+    },
+  },
+  server: {
+    proxy: {
+      '/exams': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
     },
   },
 })
